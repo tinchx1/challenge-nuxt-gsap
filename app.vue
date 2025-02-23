@@ -1,6 +1,7 @@
 <template>
   <main>
-    <GalleryCarousel :slides="sliderVideos" :loop="true" />
+    <GalleryCarousel :slides="sliderVideos" :loop="false" :autoplay=false :autoplay-delay="5000" />
+  
   </main>
 </template>
 
@@ -9,50 +10,48 @@ import GalleryCarousel from "./components/GalleryCarousel.vue";
 
 const sliderVideos = [
   {
-    title: "Video 01",
+    title: "Mono Primate",
     media: {
       type: "video",
-      src: "https://cdn.pixabay.com/video/2023/03/28/156403-812608621_tiny.mp4",
-      w: "200",
-      h: "300",
+      src: "https://cdn.pixabay.com/video/2023/08/28/178061-858827923_large.mp4",
+      w: "1920",
+      h: "1080",
+    }
+  },
+  {
+    title: "Guacamayo",
+    media: {
+      type: "video",
+      src: "https://cdn.pixabay.com/video/2022/05/12/116780-709887677_large.mp4",
+      w: "1920",
+      h: "1080",
     }
   },
   
   {
-    title: "Video 02",
+    title: "Leon Hagenbeck",
     media: {
       type: "video",
-      src: "https://cdn.pixabay.com/video/2022/07/25/125483-733802506_tiny.mp4",
-      w: "200",
-      h: "300",
-    }
-  },
-  
-  {
-    title: "Video 03",
-    media: {
-      type: "video",
-      src: "https://cdn.pixabay.com/video/2024/06/04/215334_tiny.mp4",
-      w: "200",
-      h: "300",
+      src: "https://cdn.pixabay.com/video/2017/01/01/6970-197914397_large.mp4",
+      w: "1920",
+      h: "1080",
     }
   },
 
   {
-    title: "Video 04",
+    title: "Aguila",
     media: {
       type: "video",
-      src: "https://cdn.pixabay.com/video/2024/01/28/198389-907598289_tiny.mp4",
-      w: "200",
-      h: "300",
+      src: "https://cdn.pixabay.com/video/2021/07/02/79866-570708318_large.mp4",
+      w: "1920",
+      h: "1080",
     }
   },
-
   {
-    title: "Video 06",
+    title: "Bufalo",
     media: {
-      type: "video",
-      src: "https://cdn.pixabay.com/video/2023/08/25/177653-858018148_large.mp4",
+      type: "image",
+      src: "https://cdn.pixabay.com/photo/2016/09/20/08/51/buffalo-1682061_640.jpg",
       w: "1920",
       h: "1080",
     }
