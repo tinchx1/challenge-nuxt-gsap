@@ -5,6 +5,8 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .carousel-container {
@@ -20,18 +22,6 @@
   display: flex;
 }
 
-.carousel-item {
-  width: 500px;
-  object-fit: contain;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-
-  @media (min-width: 1024px) {
-    clip-path: inset(19% 37% 24% 37%);
-    height: 100vh;
-  }
-}
 
 .btn {
   background: rgba(0, 0, 0, 0.5);
@@ -42,6 +32,8 @@
   font-size: 20px;
   position: absolute;
   z-index: 1;
+  background-size: cover;
+  background-position: center;
 
   &.prev {
     left: 0;
@@ -51,11 +43,9 @@
     right: 0;
   }
 
-  @media (max-width: 1024px) {
-    .btn {
-      display: block;
-
-    }
+  @media (min-width: 1024px) {
+    background: none;
+    object-fit: cover;
   }
 }
 

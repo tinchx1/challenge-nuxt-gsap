@@ -1,9 +1,11 @@
 import { gsap } from "gsap";
 import Flip from "gsap/Flip";
+// import { useIsMobile } from "./useIsMobile";
 
 gsap.registerPlugin(Flip);
 
 export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel) {
+  // const { isMobile } = useIsMobile();
   const updateSlide = (direction) => {
     const state = Flip.getState(".carousel-item");
     const width = window.innerWidth;

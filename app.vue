@@ -37,7 +37,15 @@ const sliderVideos = [
       h: "1080",
     }
   },
-
+  {
+    title: "Bufalo",
+    media: {
+      type: "image",
+      src: "https://cdn.pixabay.com/photo/2016/09/20/08/51/buffalo-1682061_640.jpg",
+      w: "1920",
+      h: "1080",
+    }
+  },
   {
     title: "Aguila",
     media: {
@@ -47,15 +55,6 @@ const sliderVideos = [
       h: "1080",
     }
   },
-  {
-    title: "Bufalo",
-    media: {
-      type: "image",
-      src: "https://cdn.pixabay.com/photo/2016/09/20/08/51/buffalo-1682061_640.jpg",
-      w: "1920",
-      h: "1080",
-    }
-  }
 ];
 
 

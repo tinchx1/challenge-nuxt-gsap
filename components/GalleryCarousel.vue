@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, toRefs } from "vue";
+import { ref, onMounted, onUnmounted, toRefs } from "vue";
 import { useAutoplay } from "../composables/useAutoplay";
 import { useNavigation } from "../composables/useNavigation";
 import { useUpdateSlide } from "../composables/useUpdateSlide";
 import { useSplitTitle } from "../composables/useSplitTitle";
 import { useIsMobile } from "../composables/useIsMobile";
+import MediaItem from "./MediaItem.vue";
 const Direction = {
   UP: 'up',
   DOWN: 'down'
@@ -60,33 +61,30 @@ onUnmounted(() => {
 
 <template>
   <div class="carousel-wrapper">
-    <button v-if="currentIndex !== 0" class="btn prev" @click="prevSlide">◀</button>
+    <button class="btn prev" 
+    @click="prevSlide">      
+      <span v-if="isMobile">◀</span>
+      <template v-else>
+        <MediaItem class="media-button" :media="currentIndex === 0 ? slidesCopy[slidesCopy.length - 1].media : slidesCopy[currentIndex - 1].media" />
+      </template>
+    </button>
     <div class="carousel-container">
       <div class="title-overlay">
         <h2 class="title title-current" v-html="splitTitle"></h2>
         <h2 v-if="nextTitle" class="title title-next" v-html="splitNextTitle"></h2>
       </div>
-
       <div ref="carousel" class="carousel">
         <template v-for="(slide, index) in slidesCopy" :key="index">
-          <img
-            v-if="slide.media.type === 'image'"
-            :src="slide.media.src"
-            class="carousel-item"
-          />
-          <video
-            v-else
-            autoplay
-            loop
-            muted
-            playsinline
-            :src="slide.media.src"
-            class="carousel-item"
-          ></video>
+          <MediaItem class="carousel-item" :media="slide.media" />
         </template>
       </div>
     </div>
-    <button v-if="currentIndex !== slides.length - 1 && isMobile" @click="nextSlide" class="btn next">▶</button>
+    <button @click="nextSlide" class="btn next">
+      <span v-if="isMobile">▶</span>
+      <template v-else>
+        <MediaItem class="media-button" :media="currentIndex === slidesCopy.length - 1 ? slidesCopy[0].media : slidesCopy[currentIndex + 1].media" />
+      </template>
+    </button>
   </div>
 </template>
 

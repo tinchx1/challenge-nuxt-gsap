@@ -1,10 +1,10 @@
 import { debounce } from 'lodash';
 
-export function useNavigation(currentIndex, slidesCopy, loop, updateSlide, Direction) {
+export function useNavigation(currentIndex, slidesCopy, updateSlide, Direction) {
   const nextSlide = debounce(() => {
     if (currentIndex.value < slidesCopy.value.length - 1) {
       currentIndex.value += 1;
-    } else if (loop.value) {
+    } else {
       currentIndex.value = 0;
     }
     updateSlide(Direction.UP);
@@ -13,7 +13,7 @@ export function useNavigation(currentIndex, slidesCopy, loop, updateSlide, Direc
   const prevSlide = debounce(() => {
     if (currentIndex.value > 0) {
       currentIndex.value -= 1;
-    } else if (loop.value) {
+    } else {
       currentIndex.value = slidesCopy.value.length - 1;
     }
     updateSlide(Direction.DOWN);
