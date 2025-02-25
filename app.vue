@@ -12,8 +12,8 @@ const sliderVideos = [
   {
     title: "Mono Primate",
     media: {
-      type: "video",
-      src: "https://cdn.pixabay.com/video/2023/08/28/178061-858827923_large.mp4",
+      type: "image",
+      src: "https://cdn.pixabay.com/photo/2015/10/22/17/32/smoke-1001664_640.png",
       w: "1920",
       h: "1080",
     }
@@ -21,8 +21,8 @@ const sliderVideos = [
   {
     title: "Guacamayo",
     media: {
-      type: "video",
-      src: "https://cdn.pixabay.com/video/2022/05/12/116780-709887677_large.mp4",
+      type: "image",
+      src: "https://cdn.pixabay.com/photo/2014/06/24/17/38/smoke-376543_640.jpg",
       w: "1920",
       h: "1080",
     }
@@ -31,8 +31,8 @@ const sliderVideos = [
   {
     title: "Leon Hagenbeck",
     media: {
-      type: "video",
-      src: "https://cdn.pixabay.com/video/2017/01/01/6970-197914397_large.mp4",
+      type: "image",
+      src: "https://cdn.pixabay.com/photo/2020/04/17/06/39/smoke-5053431_640.jpg",
       w: "1920",
       h: "1080",
     }
@@ -41,7 +41,7 @@ const sliderVideos = [
     title: "Bufalo",
     media: {
       type: "image",
-      src: "https://cdn.pixabay.com/photo/2016/09/20/08/51/buffalo-1682061_640.jpg",
+      src: "https://cdn.pixabay.com/photo/2015/10/22/17/34/smoke-1001667_640.png",
       w: "1920",
       h: "1080",
     }
@@ -50,7 +50,7 @@ const sliderVideos = [
     title: "Aguila",
     media: {
       type: "video",
-      src: "https://cdn.pixabay.com/video/2021/07/02/79866-570708318_large.mp4",
+      src: "https://cdn.pixabay.com/video/2021/02/27/66481-517677516_tiny.mp4",
       w: "1920",
       h: "1080",
     }

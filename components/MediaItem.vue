@@ -6,7 +6,7 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  class: {
+  customClass: {
     type: String,
     default: '',
   },
@@ -17,7 +17,7 @@ const props = defineProps({
     <img
       v-if="media.type === 'image'"
       :src="media.src"
-      :class="class"
+      :class="customClass"
       />
     <video
       v-else
@@ -26,7 +26,7 @@ const props = defineProps({
       muted
       playsinline
       :src="media.src"
-      :class="class"
+      :class="customClass"
     ></video>
 </template>
 
