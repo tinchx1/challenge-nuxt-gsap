@@ -3,6 +3,8 @@
 
 # Cosas a mejorar (lo intente hacer en el menor tiempo)
 - Usar TypeScript
+- Arreglar saltos de pantalla al entrar
+- Aumentar fluidez
 - Modularizar mas
 - Optimizar imagenes / videos
 - Me falto eslint
