@@ -5,7 +5,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  max-width: 1700px;
+  max-width: 2000px;
   margin: 0 auto;
 }
 
@@ -22,6 +22,43 @@
   display: flex;
 }
 
+.background {
+  height: 650px;
+  width: 1400px;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0.1;
+  background-size: cover;
+  opacity: rgba(0, 0, 0, 0.1);
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+  animation: scaleBackground 10s infinite alternate;
+
+  @media (min-width: 1024px) {
+    height: 600px;
+    width: 950px;
+  }
+
+  @media (min-width: 1224px) {
+    height: 700px;
+    width: 1350px;
+  }
+}
+
+@keyframes scaleBackground {
+  0% {
+    background-size: 120% auto;
+  }
+
+  100% {
+    background-size: 100% auto;
+  }
+
+}
 
 .btn {
   background: rgba(0, 0, 0, 0.5);
@@ -52,11 +89,45 @@
 
 .current {
   rotate: 90deg;
+  z-index: 1;
+}
+
+.out {
+  overflow: hidden;
+  display: none;
+}
+
+.index-container {
+  position: absolute;
+  top: 1;
+  left: 0;
+  bottom: 0;
+  right: 1;
+  z-index: 1;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', serif;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.index-container h4 {
+  margin: 5px 0;
+  transition: color 0.3s ease-in-out;
+}
+
+.index-container h4.active {
+  color: white;
+  font-weight: bold;
 }
 
 .title-overlay {
   position: absolute;
-  top: 10%;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;

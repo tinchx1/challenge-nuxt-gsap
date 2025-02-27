@@ -10,7 +10,7 @@ import GalleryCarousel from "./components/GalleryCarousel.vue";
 
 const sliderVideos = [
   {
-    title: "Guacamayo",
+    title: "Serene Space",
     media: {
       type: "image",
       src: "https://cdn.pixabay.com/photo/2014/06/24/17/38/smoke-376543_640.jpg",
@@ -20,7 +20,7 @@ const sliderVideos = [
   },
   
   {
-    title: "Leon Hagenbeck",
+    title: "Calm Drift",
     media: {
       type: "image",
       src: "https://cdn.pixabay.com/photo/2020/04/17/06/39/smoke-5053431_640.jpg",
@@ -29,7 +29,7 @@ const sliderVideos = [
     }
   },
   {
-    title: "Bufalo",
+    title: "Soft Whisper",
     media: {
       type: "image",
       src: "https://cdn.pixabay.com/photo/2015/10/22/17/34/smoke-1001667_640.png",
@@ -38,7 +38,7 @@ const sliderVideos = [
     }
   },
   {
-    title: "Mono Primate",
+    title: "Subtle Balance",
     media: {
       type: "image",
       src: "https://cdn.pixabay.com/photo/2015/10/22/17/32/smoke-1001664_640.png",
