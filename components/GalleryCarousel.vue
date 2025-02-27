@@ -41,17 +41,15 @@ const currentIndex = ref(0);
 const currentTitle = ref(slides.value[0]?.title || "");
 const nextTitle = ref("");
 
-// Crear una copia de slides
 const slidesCopy = ref([...slides.value]);
 
-// Validar que el componente reciba al menos 3 slides
 if (slidesCopy.value.length < 3) {
   slidesCopy.value = [...slidesCopy.value, ...slidesCopy.value, ...slidesCopy.value].slice(0, 3);
 }
 
 const { splitTitle, splitNextTitle } = useSplitTitle(currentTitle, nextTitle);
-const { updateSlide } = useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next,current , slides);
-const { nextSlide, prevSlide } = useNavigation(currentIndex, slidesCopy, updateSlide, Direction);
+const { updateSlide } = useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next);
+const { nextSlide, prevSlide } = useNavigation(updateSlide, Direction);
 const { startAutoplay, stopAutoplay } = useAutoplay(nextSlide, autoplayDelay, loop, currentIndex, slidesCopy);
 
 onMounted(() => {

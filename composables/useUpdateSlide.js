@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 
 
-export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next, current, slides) {
+export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next) {
   const updateSlide = (direction) => {
     const width = isMobile.value || window.innerWidth < 1200 ? window.innerWidth : "1200";
     nextTitle.value = slidesCopy.value[currentIndex.value]?.title;
