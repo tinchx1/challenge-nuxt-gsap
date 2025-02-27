@@ -10,15 +10,6 @@ import GalleryCarousel from "./components/GalleryCarousel.vue";
 
 const sliderVideos = [
   {
-    title: "Mono Primate",
-    media: {
-      type: "image",
-      src: "https://cdn.pixabay.com/photo/2015/10/22/17/32/smoke-1001664_640.png",
-      w: "1920",
-      h: "1080",
-    }
-  },
-  {
     title: "Guacamayo",
     media: {
       type: "image",
@@ -47,10 +38,10 @@ const sliderVideos = [
     }
   },
   {
-    title: "Aguila",
+    title: "Mono Primate",
     media: {
-      type: "video",
-      src: "https://cdn.pixabay.com/video/2021/02/27/66481-517677516_tiny.mp4",
+      type: "image",
+      src: "https://cdn.pixabay.com/photo/2015/10/22/17/32/smoke-1001664_640.png",
       w: "1920",
       h: "1080",
     }

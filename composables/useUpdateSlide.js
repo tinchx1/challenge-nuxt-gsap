@@ -1,14 +1,12 @@
-import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
+import { gsap } from "gsap";
 
 gsap.registerPlugin(Flip)
 
-
-export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next) {
+export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next, current, slides) {
   const updateSlide = (direction) => {
     const width = isMobile.value || window.innerWidth < 1200 ? window.innerWidth : "1200";
     nextTitle.value = slidesCopy.value[currentIndex.value]?.title;
-
     setTimeout(() => {
       const tl = gsap.timeline();
 
@@ -38,43 +36,72 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           duration: 1,
           ease: "power2.inOut",
         });
+        if (direction === Direction.UP) {
+
+          if (currentIndex.value < slidesCopy.value.length - 1) {
+            currentIndex.value += 1;
+          } else {
+            currentIndex.value = 0;
+          }
+        } else {
+          if (currentIndex.value > 0) {
+            currentIndex.value -= 1;
+          } else {
+            currentIndex.value = slidesCopy.value.length - 1;
+          }
+        }
       } else {
-
-        const state = Flip.getState(carousel.value);
-        console.log(state);
-        (direction === Direction.UP ? next : prev).value.appendChild(carousel.value);
-        Flip.from(state, {
-          rotate: direction === Direction.UP ? -90 : 90,
-          duration: 1,
+        const buttonNotTouch = direction === Direction.UP ? ".prev" : ".next";
+        gsap.to(buttonNotTouch, {
+          scale: 0,
+          duration: 1.2,
           ease: "power2.inOut",
-          scale: true
-        })
-        // const buttonNotTouch = direction !== Direction.UP ? ".next" : ".prev";
-        // const buttonTouch = direction === Direction.UP ? ".next" : ".prev";
+          onComplete: () => {
+            gsap.set(buttonNotTouch, { scale: 1, delay: 0.2 });
+          }
+        });
 
-        // gsap.to(buttonNotTouch, {
-        //   scale: 0.5,
-        //   opacity: 0,
-        //   duration: 1,
-        // });
-
-        // gsap.to(carousel.value, {
-        //   x: (direction === Direction.UP ? 50 : 750) * (direction === Direction.UP ? -1 : 1),
-        //   clipPath: "inset(4% 14% 4% 14%)",
-        //   rotate: direction === Direction.UP ? -90 : 90,
-        //   transformOrigin: "center center",
-        //   duration: 1,
-        //   width: "360",
-        // });
-
-        // gsap.to(buttonTouch, {
-        //   x: direction === Direction.UP ? `-=${50}` : `+=${50}`,
-        //   // clipPath: "inset(0 32% 0 34%)",
-        //   duration: 1,
-        //   width: "50%",
-        //   height: "100vh",
-        //   rotate: direction === Direction.UP ? -90 : 90,
-        // });
+        gsap.to(".current", {
+          x: direction === Direction.UP ? "-100%" : "100%",
+          rotate: 1,
+          zIndex: 1,
+          duration: 1.4,
+          clipPath: "inset(36% 26% 36% 26%)",
+          onComplete: () => {
+            gsap.set(".current", { x: 0, rotate: 90, clipPath: "inset(0% 0% 0% 0%)" });
+          }
+        });
+        if (direction === Direction.UP) {
+          gsap.to(".next", {
+            x: "-98%",
+            rotate: 90,
+            duration: 1.4,
+            clipPath: "inset(0% 0% 0% 0%)",
+            onComplete: () => {
+              gsap.set(".next", { x: 0, rotate: 0, clipPath: "inset(36% 26% 36% 26%)" })
+              if (currentIndex.value < slidesCopy.value.length - 1) {
+                currentIndex.value += 1;
+              } else {
+                currentIndex.value = 0;
+              }
+            }
+          });
+        } else {
+          gsap.to(".prev", {
+            x: "99%",
+            rotate: -90,
+            duration: 0.8,
+            clipPath: "inset(0% 0% 0% 0%)",
+            onComplete: () => {
+              gsap.set(".prev", { x: 0, rotate: 0, clipPath: "inset(36% 26% 36% 26%)" })
+              if (currentIndex.value > 0) {
+                currentIndex.value -= 1;
+              } else {
+                currentIndex.value = slidesCopy.value.length - 1;
+              }
+            }
+          });
+        }
       }
     }, 0.2);
   };

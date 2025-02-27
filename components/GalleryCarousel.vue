@@ -32,6 +32,7 @@ const props = defineProps({
 });
 const prev = ref(null);
 const next = ref(null);
+const current = ref(0);
 const { loop, slides, autoplay, autoplayDelay } = toRefs(props);
 const { isMobile } = useIsMobile();
 const carousel = ref(null);
@@ -49,7 +50,7 @@ if (slidesCopy.value.length < 3) {
 }
 
 const { splitTitle, splitNextTitle } = useSplitTitle(currentTitle, nextTitle);
-const { updateSlide } = useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next);
+const { updateSlide } = useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next,current , slides);
 const { nextSlide, prevSlide } = useNavigation(currentIndex, slidesCopy, updateSlide, Direction);
 const { startAutoplay, stopAutoplay } = useAutoplay(nextSlide, autoplayDelay, loop, currentIndex, slidesCopy);
 
@@ -62,16 +63,15 @@ onMounted(() => {
 onUnmounted(() => {
   stopAutoplay();
 });
-console.log(carousel)
 </script>
 
 <template>
   <div class="carousel-wrapper">
-    <button ref="prev" class="btn prev" @click="prevSlide">
-      <span v-if="isMobile">◀</span>
-      <template v-else>
+    <button v-if="isMobile" ref="prev" class="btn prev" @click="prevSlide">
+      <span>◀</span>
+      <!-- <template v-else>
         <MediaItem customClass="media-button" :media="currentIndex === 0 ? slidesCopy[slidesCopy.length - 1].media : slidesCopy[currentIndex - 1].media" />
-      </template>
+      </template> -->
     </button>
     <div class="carousel-container">
       <div class="title-overlay">
@@ -80,20 +80,32 @@ console.log(carousel)
       </div>
 
       <div ref="carousel" class="carousel">
-        <template v-for="(slide, index) in slidesCopy" :key="index">
-          <MediaItem customClass="carousel-item" :media="slide.media" />
+        <template v-if="isMobile" v-for="(slide, index) in slidesCopy" :key="index">
+            <MediaItem customClass="carousel-item" :media="slide.media" />
+        </template>
+        <template v-else>
+        <div class="media-button prev" ref="prev" @click="prevSlide">
+          <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[currentIndex === 0 ? slides.length - 1 : currentIndex - 1].media"  :key="`${currentIndex}-${slides[currentIndex].media}`" />
+        </div>
+        <div class="current" ref="current">
+          <MediaItem id="carousel"  v-show="true" customClass="carousel-item" :media="slides[currentIndex].media"  :key="`${currentIndex}-${slides[currentIndex].media}`" />
+        </div>
+        <div class="media-button next" ref="next" @click="nextSlide">
+          <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 1) % slides.length].media"   :key="`${currentIndex}-${slides[currentIndex].media}`" />
+        </div>
         </template>
       </div>
     </div>
-    <button ref="next" @click="nextSlide" class="btn next">
-      <span v-if="isMobile">▶</span>
-      <template v-else>
-        <MediaItem customClass="media-button" :media="currentIndex === slidesCopy.length - 1 ? slidesCopy[0].media : slidesCopy[currentIndex + 1].media" />
-      </template>
+    <button v-if="isMobile" ref="next" @click="nextSlide" class="btn next">
+      <span>▶</span>
+      <!-- <template v-else>
+          <MediaItem customClass="media-button" :media="currentIndex === slidesCopy.length - 1 ? slidesCopy[0].media : slidesCopy[currentIndex + 1].media" />
+      </template> -->
     </button>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use '@/assets/styles/carousel.scss';
+@use '@/assets/styles/media.scss';
 </style>
