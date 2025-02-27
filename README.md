@@ -1,5 +1,14 @@
 # Nuxt Minimal Starter
 
+
+# Cosas a mejorar (lo intente hacer en el menor tiempo)
+- Usar TypeScript
+- Modularizar mas
+- Optimizar imagenes / videos
+- Me falto eslint
+
+
+
 ## Vista Previa del Video
 
 Aquí hay una vista previa del video utilizado en el proyecto:
