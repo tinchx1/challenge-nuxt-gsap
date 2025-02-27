@@ -1,9 +1,14 @@
 # Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Vista Previa del Video
 
+Aquí hay una vista previa del video utilizado en el proyecto:
+
+<video width="600" controls>
+  <source src="https://www.loom.com/share/a29c043d5b924d9aa5cc77fe421f0af0?sid=db835051-850c-4c5a-821e-eb13cac97dc2" type="video/mp4">
+  Tu navegador no soporta la etiqueta de video.
+</video>
 ## Setup
-
 Make sure to install dependencies:
 
 ```bash
