@@ -40,8 +40,8 @@ const sliderVideos = [
   {
     title: "Subtle Balance",
     media: {
-      type: "image",
-      src: "https://cdn.pixabay.com/photo/2015/10/22/17/32/smoke-1001664_640.png",
+      type: "video",
+      src: "https://cdn.pixabay.com/video/2021/02/27/66481-517677516_tiny.mp4",
       w: "1920",
       h: "1080",
     }

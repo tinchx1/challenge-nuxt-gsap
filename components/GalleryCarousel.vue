@@ -99,7 +99,13 @@ onUnmounted(() => {
           <div class="media-button out">
             <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 2) % slides.length].media" />
           </div>
-          <div :style="{ backgroundImage: `url(${slides[currentIndex].media.src})` }" class="background"></div>
+          <div v-if="slides[currentIndex].media.type === 'image'" :style="{ backgroundImage: `url(${slides[currentIndex].media.src})` }" class="background"></div>
+          <video 
+            autoplay
+            loop
+            muted
+            playsinline
+            class="background" :src="slides[currentIndex].media.src"></video>
         </template>
       </div>
     </div>
