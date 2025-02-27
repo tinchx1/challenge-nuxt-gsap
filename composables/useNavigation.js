@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es'
 
 export function useNavigation(updateSlide, Direction) {
   const nextSlide = debounce(() => {
