@@ -49,21 +49,26 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           }
         }
       } else {
-
-        gsap.to(".background", {
-          opacity: 0.8,
-          delay: 1,
-          duration: 0.4,
-          onComplete: function () {
-            gsap.set(".background", {
-              opacity: 1,
-              duration: 0.4
-            });
+        const tl = gsap.timeline({
+          defaults: { ease: "power2.inOut" },
+          onComplete: () => {
+            // if (direction === Direction.UP) {
+            //   currentIndex.value = (currentIndex.value < slidesCopy.value.length - 1)
+            //     ? currentIndex.value + 1
+            //     : 0;
+            // } else {
+            //   currentIndex.value = (currentIndex.value > 0)
+            //     ? currentIndex.value - 1
+            //     : slidesCopy.value.length - 1;
+            // }
           }
         });
 
+        // **Fondo con opacidad para transición sutil**
+        tl.to(".background", { opacity: 0.8, duration: 0.3 }, "0")
+          .set(".background", { opacity: 1 }, "0");
 
-
+        // **Animación del efecto de salida**
         function showOut(direction) {
 
           const outElements = document.querySelectorAll(".out");
@@ -87,77 +92,64 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
               delay: 0.3,
               duration: 0.8,
               ease: "power2.out",
-              onComplete: () => {
-                setTimeout(() => {
-                  gsap.set(out, {
-                    opacity: 0,
-                    onComplete: () => {
-                      out.style.display = "none";
-                      out.style.position = "";
-                    },
-                  });
-                }, 300);
-              },
+              // onComplete: () => {
+              //   setTimeout(() => {
+              //     gsap.set(out, {
+              //       opacity: 0,
+              //       onComplete: () => {
+              //         out.style.display = "none";
+              //         out.style.position = "";
+              //       },
+              //     });
+              //   }, 300);
+              // },
             }
           )
         }
 
 
+
         showOut(direction === Direction.UP ? "right" : "left");
+
+        // **Botón que no se toca desaparece y reaparece suavemente**
         const buttonNotTouch = direction === Direction.UP ? ".prev" : ".next";
 
+        tl.to(buttonNotTouch, { scale: 0, duration: 0.9, zIndex: 0 }, "0")
+          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, "0");
 
-        gsap.to(buttonNotTouch, {
-          scale: 0,
-          duration: 1.2,
-          ease: "power2.inOut",
-          zIndex: 0,
-          onComplete: () => {
-            gsap.set(buttonNotTouch, { scale: 1, delay: 0.2, zIndex: 3 });
-          }
-        });
-        gsap.to(".current", {
+        // **Movimiento de la caja actual con transición fluida**
+        tl.to(".current", {
           x: direction === Direction.UP ? "-100%" : "100%",
-          rotate: direction === Direction.UP ? 1 : -1,
           zIndex: 2,
-          duration: 1.4,
-          clipPath: "inset(36% 26% 36% 26%)",
-          onComplete: () => {
-            gsap.set(".current", { x: 0, rotate: direction === Direction.UP ? -90 : 90, clipPath: "inset(0% 0% 0% 0%)", zIndex: 1 });
-          }
-        });
+          duration: 1,
+          clipPath: "inset(36% 26% 36% 26%)"
+        }, "0").set(".current", {
+          x: 0,
+          clipPath: "inset(0% 0% 0% 0%)",
+          zIndex: 1
+        }, "0");
+
+        // **Movimiento de la siguiente o anterior caja**
         if (direction === Direction.UP) {
-          gsap.to(".next", {
+          tl.to(".next", {
             x: "-100%",
-            rotate: -90,
-            duration: 1.4,
-            zIndex: 1,
-            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1,
+            zIndex: 3,
+            clipPath: "inset(0 27% 0 27%)",
             onComplete: () => {
-              gsap.set(".next", { x: 0, rotate: 0, clipPath: "inset(36% 26% 36% 26%)", zIndex: 3 });
-              if (currentIndex.value < slidesCopy.value.length - 1) {
-                currentIndex.value += 1;
-              } else {
-                currentIndex.value = 0;
-              }
+              // gsap.set(".next", { x: 0, clipPath: "inset(36% 26% 36% 26%)", zIndex: 5 });
             }
-          });
+          }, "0");
         } else {
-          gsap.to(".prev", {
+          tl.to(".prev", {
             x: "100%",
-            rotate: 90,
-            duration: 1.4,
-            clipPath: "inset(0% 0% 0% 0%)",
-            zIndex: 1,
+            duration: 1,
+            clipPath: "inset(0 27% 0 27%)",
+            zIndex: 3,
             onComplete: () => {
-              gsap.set(".prev", { x: 0, rotate: 0, clipPath: "inset(36% 26% 36% 26%)", zIndex: 3 });
-              if (currentIndex.value > 0) {
-                currentIndex.value -= 1;
-              } else {
-                currentIndex.value = slidesCopy.value.length - 1;
-              }
+              // gsap.set(".prev", { x: 0, clipPath: "inset(36% 26% 36% 26%)", zIndex: 5 });
             }
-          });
+          }, "0");
         }
       }
     }, 0.2);

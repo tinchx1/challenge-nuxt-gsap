@@ -8,6 +8,8 @@
 - Modularizar mas
 - Optimizar imagenes / videos
 - Me falto eslint
+- Pasar estilos al componente
+- Usar dependencia nuxt device
 
 
 

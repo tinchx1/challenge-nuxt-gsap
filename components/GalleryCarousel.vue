@@ -101,6 +101,7 @@ onUnmounted(() => {
           </div>
           <div v-if="slides[currentIndex].media.type === 'image'" :style="{ backgroundImage: `url(${slides[currentIndex].media.src})` }" class="background"></div>
           <video 
+            v-else
             autoplay
             loop
             muted
