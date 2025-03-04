@@ -10,6 +10,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  height_media: {
+    type: String,
+    default: 'auto',
+  },
+  width_media: {
+    type: String,
+    default: 'auto',
+  },
 });
 </script>
 
@@ -24,6 +32,8 @@ const props = defineProps({
       autoplay
       loop
       muted
+      :height="height_media"
+      :width="width_media"
       playsinline
       :src="media.src"
       :class="customClass"

@@ -85,19 +85,19 @@ onUnmounted(() => {
         </template>
         <template v-else>
           <div class="media-button out">
-            <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[currentIndex === 0 ? slides.length - 2 : (currentIndex - 2 + slides.length) % slides.length].media" />
+            <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[currentIndex === 0 ? slides.length - 2 : (currentIndex - 2 + slides.length) % slides.length].media" width_media="415" height_media="640" />
           </div>
         <div class="media-button prev" ref="prev" @click="prevSlide">
-          <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[currentIndex === 0 ? slides.length - 1 : currentIndex - 1].media" />
+          <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[currentIndex === 0 ? slides.length - 1 : currentIndex - 1].media" width_media="415" height_media="640" />
         </div>
         <div class="current" ref="current">
-          <MediaItem id="carousel"  v-show="true" customClass="carousel-item" :media="slides[currentIndex].media" />
+          <MediaItem id="carousel"  v-show="true" customClass="carousel-item" :media="slides[currentIndex].media" width_media="415" height_media="640" />
         </div>
         <div class="media-button next" ref="next" @click="nextSlide">
-          <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 1) % slides.length].media"  />
+          <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 1) % slides.length].media" width_media="415" height_media="640" />
         </div>
           <div class="media-button out">
-            <MediaItem id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 2) % slides.length].media" />
+            <MediaItem  id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 2) % slides.length].media" width_media="415" height_media="640"/>
           </div>
           <div v-if="slides[currentIndex].media.type === 'image'" :style="{ backgroundImage: `url(${slides[currentIndex].media.src})` }" class="background"></div>
           <video 

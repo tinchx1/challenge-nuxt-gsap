@@ -13,9 +13,9 @@ const sliderVideos = [
     title: "Serene Space",
     media: {
       type: "image",
-      src: "https://cdn.pixabay.com/photo/2014/06/24/17/38/smoke-376543_640.jpg",
-      w: "1920",
-      h: "1080",
+      src: "/smoke-1.jpg",
+      w: "415",
+      h: "640",
     }
   },
   
@@ -23,27 +23,27 @@ const sliderVideos = [
     title: "Calm Drift",
     media: {
       type: "image",
-      src: "https://cdn.pixabay.com/photo/2020/04/17/06/39/smoke-5053431_640.jpg",
-      w: "1920",
-      h: "1080",
+      src: "/smoke-2.jpg",
+      w: "415",
+      h: "640",
     }
   },
   {
     title: "Soft Whisper",
     media: {
       type: "image",
-      src: "https://cdn.pixabay.com/photo/2015/10/22/17/34/smoke-1001667_640.png",
-      w: "1920",
-      h: "1080",
+      src: "/smoke-3.jpg",
+      w: "415",
+      h: "640",
     }
   },
   {
     title: "Subtle Balance",
     media: {
       type: "image",
-      src: "https://cdn.pixabay.com/photo/2015/10/22/17/32/smoke-1001664_640.png",
-      w: "1920",
-      h: "1080",
+      src: "/smoke-4.jpg",
+      w: "415",
+      h: "640",
     }
   },
 ];
@@ -52,5 +52,10 @@ const sliderVideos = [
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/main.scss';
+main {
+  background-color: #131114;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
 </style>

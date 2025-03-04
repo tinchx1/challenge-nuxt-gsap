@@ -52,15 +52,15 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
         const tl = gsap.timeline({
           defaults: { ease: "power2.inOut" },
           onComplete: () => {
-            // if (direction === Direction.UP) {
-            //   currentIndex.value = (currentIndex.value < slidesCopy.value.length - 1)
-            //     ? currentIndex.value + 1
-            //     : 0;
-            // } else {
-            //   currentIndex.value = (currentIndex.value > 0)
-            //     ? currentIndex.value - 1
-            //     : slidesCopy.value.length - 1;
-            // }
+            if (direction === Direction.UP) {
+              currentIndex.value = (currentIndex.value < slidesCopy.value.length - 1)
+                ? currentIndex.value + 1
+                : 0;
+            } else {
+              currentIndex.value = (currentIndex.value > 0)
+                ? currentIndex.value - 1
+                : slidesCopy.value.length - 1;
+            }
           }
         });
 
@@ -74,7 +74,7 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           const outElements = document.querySelectorAll(".out");
           const out = direction === "left" ? outElements[0] : outElements[1];
           const target = direction === "left" ? prev.value : next.value;
-          gsap.set(out, {
+          tl.set(out, {
             position: "absolute",
             width: target.offsetWidth + "px",
             height: target.offsetHeight + "px",
@@ -82,8 +82,8 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
             left: target.offsetLeft + "px",
             display: "block",
 
-          });
-          gsap.fromTo(
+          }, "0");
+          tl.fromTo(
             out,
             { scale: 0, opacity: 0 },
             {
@@ -92,19 +92,19 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
               delay: 0.3,
               duration: 0.8,
               ease: "power2.out",
-              // onComplete: () => {
-              //   setTimeout(() => {
-              //     gsap.set(out, {
-              //       opacity: 0,
-              //       onComplete: () => {
-              //         out.style.display = "none";
-              //         out.style.position = "";
-              //       },
-              //     });
-              //   }, 300);
-              // },
+              onComplete: () => {
+                setTimeout(() => {
+                  gsap.set(out, {
+                    opacity: 0,
+                    onComplete: () => {
+                      out.style.display = "none";
+                      out.style.position = "";
+                    },
+                  });
+                }, 300);
+              },
             }
-          )
+          ), "0"
         }
 
 
@@ -119,35 +119,37 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
 
         // **Movimiento de la caja actual con transición fluida**
         tl.to(".current", {
-          x: direction === Direction.UP ? "-100%" : "100%",
+          x: direction === Direction.UP ? "-140.7%" : "140.7%",
+          clipPath: direction === Direction.UP ? "polygon(20% 63%,20% 41%, 80% 41%, 80% 63%)" : "polygon(80% 41%, 80% 63%, 20% 63%, 20% 41%)",
+          height: "100%",
           zIndex: 2,
           duration: 1,
-          clipPath: "inset(36% 26% 36% 26%)"
         }, "0").set(".current", {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
           x: 0,
-          clipPath: "inset(0% 0% 0% 0%)",
           zIndex: 1
-        }, "0");
+        }, ">");
 
         // **Movimiento de la siguiente o anterior caja**
         if (direction === Direction.UP) {
+          console.log("next");
           tl.to(".next", {
-            x: "-100%",
+            clipPath: "polygon(0% 100%,0% 0%, 100% 0%, 100% 100%)",
+            x: "-140.7%",
             duration: 1,
             zIndex: 3,
-            clipPath: "inset(0 27% 0 27%)",
             onComplete: () => {
-              // gsap.set(".next", { x: 0, clipPath: "inset(36% 26% 36% 26%)", zIndex: 5 });
+              gsap.set(".next", { x: 0, clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", zIndex: 5 });
             }
           }, "0");
         } else {
           tl.to(".prev", {
-            x: "100%",
+            clipPath: "polygon(100% 0%, 100% 100%, 0% 100%,0% 0%)",
+            x: "140.7%",
             duration: 1,
-            clipPath: "inset(0 27% 0 27%)",
             zIndex: 3,
             onComplete: () => {
-              // gsap.set(".prev", { x: 0, clipPath: "inset(36% 26% 36% 26%)", zIndex: 5 });
+              gsap.set(".prev", { x: 0, clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", zIndex: 5 });
             }
           }, "0");
         }
