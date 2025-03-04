@@ -4,7 +4,6 @@ import { useAutoplay } from "../composables/useAutoplay";
 import { useNavigation } from "../composables/useNavigation";
 import { useUpdateSlide } from "../composables/useUpdateSlide";
 import { useSplitTitle } from "../composables/useSplitTitle";
-import { useIsMobile } from "../composables/useIsMobile";
 import MediaItem from "./MediaItem.vue";
 
 const Direction = {
@@ -34,7 +33,7 @@ const prev = ref(null);
 const next = ref(null);
 const current = ref(0);
 const { loop, slides, autoplay, autoplayDelay } = toRefs(props);
-const { isMobile } = useIsMobile();
+const { isMobile } = useDevice()
 const carousel = ref(null);
 
 const currentIndex = ref(0);

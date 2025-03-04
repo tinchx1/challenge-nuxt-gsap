@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 
 export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next) {
   const updateSlide = (direction) => {
-    const width = isMobile.value || window.innerWidth < 1200 ? window.innerWidth : "1200";
+    const width = window.innerWidth
     nextTitle.value = slidesCopy.value[currentIndex.value]?.title;
     setTimeout(() => {
       const tl = gsap.timeline();
@@ -28,7 +28,7 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
             nextTitle.value = "";
           },
         }, 0.1);
-      if (isMobile.value) {
+      if (isMobile) {
         gsap.to(carousel.value, {
           x: -currentIndex.value * width,
           duration: 1,
