@@ -35,7 +35,6 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           ease: "power2.inOut",
         });
         if (direction === Direction.UP) {
-
           if (currentIndex.value < slidesCopy.value.length - 1) {
             currentIndex.value += 1;
           } else {
@@ -50,7 +49,6 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
         }
       } else {
         const tl = gsap.timeline({
-          defaults: { ease: "power2.inOut" },
           onComplete: () => {
             if (direction === Direction.UP) {
               currentIndex.value = (currentIndex.value < slidesCopy.value.length - 1)
@@ -66,14 +64,14 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
 
         // **Fondo con opacidad para transición sutil**
         tl.to(".background", { opacity: 0.8, duration: 0.3 }, "0")
-          .set(".background", { opacity: 1 }, "0");
+          .set(".background", { opacity: 1 }, ">0.8");
 
         // **Animación del efecto de salida**
         function showOut(direction) {
-
           const outElements = document.querySelectorAll(".out");
           const out = direction === "left" ? outElements[0] : outElements[1];
           const target = direction === "left" ? prev.value : next.value;
+
           tl.set(out, {
             position: "absolute",
             width: target.offsetWidth + "px",
@@ -81,78 +79,63 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
             top: target.offsetTop + "px",
             left: target.offsetLeft + "px",
             display: "block",
-
           }, "0");
+
           tl.fromTo(
             out,
             { scale: 0, opacity: 0 },
-            {
-              scale: 1,
-              opacity: 1,
-              delay: 0.3,
-              duration: 0.8,
-              ease: "power2.out",
-              onComplete: () => {
-                setTimeout(() => {
-                  gsap.set(out, {
-                    opacity: 0,
-                    onComplete: () => {
-                      out.style.display = "none";
-                      out.style.position = "";
-                    },
-                  });
-                }, 300);
-              },
-            }
-          ), "0"
+            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
+            "0"
+          );
+
+          tl.set(out, { scale: 0, opacity: 0 }, ">0.8");
         }
-
-
 
         showOut(direction === Direction.UP ? "right" : "left");
 
         // **Botón que no se toca desaparece y reaparece suavemente**
         const buttonNotTouch = direction === Direction.UP ? ".prev" : ".next";
 
-        tl.to(buttonNotTouch, { scale: 0, duration: 0.9, zIndex: 0 }, "0")
-          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, "0");
+        tl.to(buttonNotTouch, { scale: 0, duration: 0.8, zIndex: 0 }, "0")
+          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, ">0.8");
 
         // **Movimiento de la caja actual con transición fluida**
         tl.to(".current", {
           x: direction === Direction.UP ? "-140.7%" : "140.7%",
-          clipPath: direction === Direction.UP ? "polygon(20% 63%,20% 41%, 80% 41%, 80% 63%)" : "polygon(80% 41%, 80% 63%, 20% 63%, 20% 41%)",
+          clipPath: direction === Direction.UP
+            ? "polygon(20% 63%,20% 41%, 80% 41%, 80% 63%)"
+            : "polygon(80% 41%, 80% 63%, 20% 63%, 20% 41%)",
           height: "100%",
-          zIndex: 2,
-          duration: 1,
-        }, "0").set(".current", {
+          duration: 0.8,
+        }, "0");
+
+        tl.set(".current", {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
           x: 0,
-          zIndex: 1
-        }, ">");
+        }, ">0.8");
 
         // **Movimiento de la siguiente o anterior caja**
         if (direction === Direction.UP) {
-          console.log("next");
           tl.to(".next", {
             clipPath: "polygon(0% 100%,0% 0%, 100% 0%, 100% 100%)",
             x: "-140.7%",
-            duration: 1,
+            duration: 0.8,
             zIndex: 3,
-            onComplete: () => {
-              gsap.set(".next", { x: 0, clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", zIndex: 5 });
-            }
           }, "0");
+
+          tl.set(".next", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">0.8");
+
         } else {
           tl.to(".prev", {
             clipPath: "polygon(100% 0%, 100% 100%, 0% 100%,0% 0%)",
             x: "140.7%",
-            duration: 1,
+            duration: 0.8,
             zIndex: 3,
-            onComplete: () => {
-              gsap.set(".prev", { x: 0, clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", zIndex: 5 });
-            }
           }, "0");
+
+          tl.set(".prev", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">0.8");
         }
+
       }
     }, 0.2);
   };

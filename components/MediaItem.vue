@@ -12,11 +12,11 @@ const props = defineProps({
   },
   height_media: {
     type: String,
-    default: 'auto',
+    default: '100%',
   },
   width_media: {
     type: String,
-    default: 'auto',
+    default: '100%',
   },
 });
 </script>
