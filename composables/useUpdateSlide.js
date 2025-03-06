@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
+import { updateIndex } from "./useUpdateIndex";
 
-
-export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next) {
+export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next, backgroundIndex) {
   const updateSlide = (direction) => {
     const width = window.innerWidth
     nextTitle.value = slidesCopy.value[currentIndex.value]?.title;
@@ -25,46 +25,30 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           stagger: 0.04,
           onComplete: () => {
             currentTitle.value = nextTitle.value;
-            nextTitle.value = "";
           },
         }, 0.1);
       if (isMobile) {
+        updateIndex(currentIndex, slidesCopy.value.length, direction);
         gsap.to(carousel.value, {
-          x: -currentIndex.value * width,
+          x: -currentIndex.value * width + 1,
           duration: 1,
           ease: "power2.inOut",
         });
-        if (direction === Direction.UP) {
-          if (currentIndex.value < slidesCopy.value.length - 1) {
-            currentIndex.value += 1;
-          } else {
-            currentIndex.value = 0;
-          }
-        } else {
-          if (currentIndex.value > 0) {
-            currentIndex.value -= 1;
-          } else {
-            currentIndex.value = slidesCopy.value.length - 1;
-          }
-        }
+
       } else {
         const tl = gsap.timeline({
-          onComplete: () => {
-            if (direction === Direction.UP) {
-              currentIndex.value = (currentIndex.value < slidesCopy.value.length - 1)
-                ? currentIndex.value + 1
-                : 0;
-            } else {
-              currentIndex.value = (currentIndex.value > 0)
-                ? currentIndex.value - 1
-                : slidesCopy.value.length - 1;
-            }
-          }
+          onComplete: () => updateIndex(currentIndex, slidesCopy.value.length, direction),
         });
+        tl.to(".background", {
+          opacity: 0.7, duration: 0.5,
 
-        // **Fondo con opacidad para transición sutil**
-        tl.to(".background", { opacity: 0.8, duration: 0.3 }, "0")
-          .set(".background", { opacity: 1 }, ">0.8");
+          onComplete: () => {
+            gsap.set(".background", { opacity: 1 }, ">0.5")
+            updateIndex(backgroundIndex, slidesCopy.value.length, direction);
+          }
+        }, "0")
+
+
 
         // **Animación del efecto de salida**
         function showOut(direction) {
@@ -84,11 +68,11 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           tl.fromTo(
             out,
             { scale: 0, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
+            { scale: 1, opacity: 1, duration: 1.2, ease: "power2.out" },
             "0"
           );
 
-          tl.set(out, { scale: 0, opacity: 0 }, ">0.8");
+          tl.set(out, { scale: 0, opacity: 0 }, ">1.2");
         }
 
         showOut(direction === Direction.UP ? "right" : "left");
@@ -96,44 +80,44 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
         // **Botón que no se toca desaparece y reaparece suavemente**
         const buttonNotTouch = direction === Direction.UP ? ".prev" : ".next";
 
-        tl.to(buttonNotTouch, { scale: 0, duration: 0.8, zIndex: 0 }, "0")
-          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, ">0.8");
-
+        tl.to(buttonNotTouch, { scale: 0, duration: 1.2, zIndex: 0 }, "0")
+          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, ">1.2");
+        const widthCurrent = document.querySelector(".current").offsetWidth + 170
         // **Movimiento de la caja actual con transición fluida**
         tl.to(".current", {
-          x: direction === Direction.UP ? "-140.7%" : "140.7%",
+          x: direction === Direction.UP ? `-${widthCurrent}px` : `${widthCurrent}px`,
           clipPath: direction === Direction.UP
             ? "polygon(20% 63%,20% 41%, 80% 41%, 80% 63%)"
             : "polygon(80% 41%, 80% 63%, 20% 63%, 20% 41%)",
           height: "100%",
-          duration: 0.8,
+          duration: 1.2,
         }, "0");
 
         tl.set(".current", {
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
           x: 0,
-        }, ">0.8");
+        }, ">1.2");
 
         // **Movimiento de la siguiente o anterior caja**
         if (direction === Direction.UP) {
           tl.to(".next", {
             clipPath: "polygon(0% 100%,0% 0%, 100% 0%, 100% 100%)",
-            x: "-140.7%",
-            duration: 0.8,
-            zIndex: 3,
+            x: `-${widthCurrent}px`,
+            duration: 1.2,
+            zIndex: 2,
           }, "0");
 
-          tl.set(".next", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">0.8");
+          tl.set(".next", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">1.2");
 
         } else {
           tl.to(".prev", {
             clipPath: "polygon(100% 0%, 100% 100%, 0% 100%,0% 0%)",
-            x: "140.7%",
-            duration: 0.8,
-            zIndex: 3,
+            x: `${widthCurrent}px`,
+            duration: 1.2,
+            zIndex: 2,
           }, "0");
 
-          tl.set(".prev", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">0.8");
+          tl.set(".prev", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">1.2");
         }
 
       }

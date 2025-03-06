@@ -1,8 +1,7 @@
 <template>
-  <main>
-    <GalleryCarousel :slides="sliderVideos" :loop="false" :autoplay=false :autoplay-delay="5000" />
-  
-  </main>
+    <main>
+      <GalleryCarousel :slides="sliderVideos" :loop="false" :autoplay=false :autoplay-delay="5000" />
+    </main>
 </template>
 
 <script setup>

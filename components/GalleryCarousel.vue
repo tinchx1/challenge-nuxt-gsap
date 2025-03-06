@@ -32,6 +32,7 @@ const props = defineProps({
 const prev = ref(null);
 const next = ref(null);
 const current = ref(0);
+const backgroundIndex = ref(0);
 const { loop, slides, autoplay, autoplayDelay } = toRefs(props);
 const { isMobile } = useDevice()
 const carousel = ref(null);
@@ -47,10 +48,9 @@ if (slidesCopy.value.length < 3) {
 }
 
 const { splitTitle, splitNextTitle } = useSplitTitle(currentTitle, nextTitle);
-const { updateSlide } = useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next);
+const { updateSlide } = useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle, Direction, carousel, isMobile, prev, next, backgroundIndex);
 const { nextSlide, prevSlide } = useNavigation(updateSlide, Direction);
 const { startAutoplay, stopAutoplay } = useAutoplay(nextSlide, autoplayDelay, loop, currentIndex, slidesCopy);
-
 onMounted(() => {
   if (autoplay.value) {
     startAutoplay();
@@ -98,14 +98,14 @@ onUnmounted(() => {
           <div class="media-button out">
             <MediaItem  id="carousel" customClass="carousel-item" v-show="true" :media="slides[(currentIndex + 2) % slides.length].media" width_media="415" height_media="640"/>
           </div>
-          <div v-if="slides[currentIndex].media.type === 'image'" :style="{ backgroundImage: `url(${slides[currentIndex].media.src})` }" class="background"></div>
+          <div v-if="slides[currentIndex].media.type === 'image'" :style="{ backgroundImage: `url(${slides[backgroundIndex].media.src})` }" class="background"></div>
           <video 
             v-else
             autoplay
             loop
             muted
             playsinline
-            class="background" :src="slides[currentIndex].media.src"></video>
+            class="background" :src="slides[backgroundIndex].media.src"></video>
         </template>
       </div>
     </div>

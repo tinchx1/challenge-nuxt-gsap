@@ -5,5 +5,8 @@ export default defineNuxtConfig({
   css: [
     '@/assets/styles/global.scss'
   ],
-  modules: ['@nuxtjs/device']
+  modules: ['@nuxtjs/device'],
+  device: {
+    refreshOnResize: true
+  }
 })
