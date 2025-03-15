@@ -12,10 +12,8 @@
 }
 
 .media-button {
-  display: absolute;
-  width: 415px;
-  height: auto;
   z-index: 5;
   cursor: pointer;
-  clip-path: polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%);
+  width: 930px;
+  clip-path: polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%);
 }

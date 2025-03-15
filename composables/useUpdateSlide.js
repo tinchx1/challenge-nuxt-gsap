@@ -68,11 +68,11 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           tl.fromTo(
             out,
             { scale: 0, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 1.2, ease: "power2.out" },
+            { scale: 2, opacity: 1, duration: 1.4, ease: "power2.out" },
             "0"
           );
 
-          tl.set(out, { scale: 0, opacity: 0 }, ">1.2");
+          tl.set(out, { scale: 2, opacity: 0 }, ">1.4");
         }
 
         showOut(direction === Direction.UP ? "right" : "left");
@@ -80,46 +80,45 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
         // **Botón que no se toca desaparece y reaparece suavemente**
         const buttonNotTouch = direction === Direction.UP ? ".prev" : ".next";
 
-        tl.to(buttonNotTouch, { scale: 0, duration: 1.2, zIndex: 0 }, "0")
-          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, ">1.2");
-        const widthCurrent = document.querySelector(".current").offsetWidth + 170
+        tl.to(buttonNotTouch, { scale: 0, duration: 1.4, zIndex: 0 }, "0")
+          .set(buttonNotTouch, { scale: 1.5, zIndex: 5 }, ">1.4");
+        const widthCurrent = document.querySelector(".current").offsetWidth;
         // **Movimiento de la caja actual con transición fluida**
         tl.to(".current", {
           x: direction === Direction.UP ? `-${widthCurrent}px` : `${widthCurrent}px`,
           clipPath: direction === Direction.UP
-            ? "polygon(20% 63%,20% 41%, 80% 41%, 80% 63%)"
-            : "polygon(80% 41%, 80% 63%, 20% 63%, 20% 41%)",
-          height: "100%",
-          duration: 1.2,
+            ? "polygon(39% 66.66%,39% 33.33%, 61% 33.33%, 61% 66.66%)"
+            : "polygon(61% 33.33%, 61% 66.66%, 39% 66.66%, 39% 33.33%)",
+          duration: 1.4,
         }, "0");
 
         tl.set(".current", {
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          clipPath: "polygon(28% 0%, 72% 0%, 72% 100%, 28% 100%)",
           x: 0,
-        }, ">1.2");
+        }, ">1.4");
 
         // **Movimiento de la siguiente o anterior caja**
         if (direction === Direction.UP) {
+
           tl.to(".next", {
-            clipPath: "polygon(0% 100%,0% 0%, 100% 0%, 100% 100%)",
+            clipPath: "polygon(28% 100%, 28% 0%, 72% 0%, 72% 100%)",
             x: `-${widthCurrent}px`,
-            duration: 1.2,
+            duration: 1.4,
             zIndex: 2,
           }, "0");
 
-          tl.set(".next", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">1.2");
+          tl.set(".next", { clipPath: "polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%)", x: 0, zIndex: 5, scale: 2 }, ">1.4");
 
         } else {
           tl.to(".prev", {
-            clipPath: "polygon(100% 0%, 100% 100%, 0% 100%,0% 0%)",
+            clipPath: "polygon(72% 0%, 72% 100%, 28% 100%, 28% 0%)",
             x: `${widthCurrent}px`,
-            duration: 1.2,
+            duration: 1.4,
             zIndex: 2,
           }, "0");
 
-          tl.set(".prev", { clipPath: "polygon(20% 41%, 80% 41%, 80% 63%, 20% 63%)", x: 0, zIndex: 5 }, ">1.2");
+          tl.set(".prev", { clipPath: "polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%)", x: 0, zIndex: 5, scale: 2 }, ">1.4");
         }
-
       }
     }, 0.2);
   };

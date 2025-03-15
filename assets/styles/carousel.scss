@@ -24,17 +24,18 @@
   width: 100%;
   height: 100%;
   display: flex;
+  align-items: center;
 
   @media (min-width: 500px) {
     justify-content: center;
-    gap: 170px;
-    // min-width: 1200px;
+    gap: 50px;
+    max-width: 1800px;
   }
 }
 
 .background {
   height: 650px;
-  width: 1400px;
+  width: 1200px;
   margin: 0 auto;
   position: absolute;
   left: 0;
@@ -55,7 +56,7 @@
   }
 
   @media (min-width: 1224px) {
-    height: 700px;
+    height: 650px;
     width: 1350px;
   }
 }
@@ -100,9 +101,9 @@
 
 .current {
   z-index: 1;
-  width: 415px;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(28% 0%, 72% 0%, 72% 100%, 28% 100%);
 }
+
 
 .out {
   overflow: hidden;
