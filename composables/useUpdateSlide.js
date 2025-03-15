@@ -68,11 +68,11 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
           tl.fromTo(
             out,
             { scale: 0, opacity: 0 },
-            { scale: 2, opacity: 1, duration: 1.4, ease: "power2.out" },
+            { scale: 1, opacity: 1, duration: 1.4, ease: "power2.out" },
             "0"
           );
 
-          tl.set(out, { scale: 2, opacity: 0 }, ">1.4");
+          tl.set(out, { scale: 1, opacity: 0, zIndex: 4 }, ">1.4");
         }
 
         showOut(direction === Direction.UP ? "right" : "left");
@@ -81,7 +81,7 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
         const buttonNotTouch = direction === Direction.UP ? ".prev" : ".next";
 
         tl.to(buttonNotTouch, { scale: 0, duration: 1.4, zIndex: 0 }, "0")
-          .set(buttonNotTouch, { scale: 1.5, zIndex: 5 }, ">1.4");
+          .set(buttonNotTouch, { scale: 1, zIndex: 5 }, ">1.4");
         const widthCurrent = document.querySelector(".current").offsetWidth;
         // **Movimiento de la caja actual con transición fluida**
         tl.to(".current", {
@@ -107,7 +107,7 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
             zIndex: 2,
           }, "0");
 
-          tl.set(".next", { clipPath: "polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%)", x: 0, zIndex: 5, scale: 2 }, ">1.4");
+          tl.set(".next", { clipPath: "polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%)", x: 0, zIndex: 5 }, ">1.4");
 
         } else {
           tl.to(".prev", {
@@ -117,7 +117,7 @@ export function useUpdateSlide(currentIndex, slidesCopy, currentTitle, nextTitle
             zIndex: 2,
           }, "0");
 
-          tl.set(".prev", { clipPath: "polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%)", x: 0, zIndex: 5, scale: 2 }, ">1.4");
+          tl.set(".prev", { clipPath: "polygon(39% 33.33%, 61% 33.33%, 61% 66.66%, 39% 66.66%)", x: 0, zIndex: 5 }, ">1.4");
         }
       }
     }, 0.2);
